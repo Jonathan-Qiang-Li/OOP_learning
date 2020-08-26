@@ -13,12 +13,30 @@ class Employee:
         self.first = first
         self.last = last
         self.pay = pay
-        self.email = first + '.' + last + '@gmail.com'
+        # self.email = first + '.' + last + '@gmail.com'
 
         Employee.num_of_emps += 1
 
+    # property decorator, seems like a function, but a property
+    @property
+    def email(self):
+        return self.first + '.' + self.last + '@gmail.com'
+
+    @property
     def fullname(self):
         return '{} {}'.format(self.first, self.last)
+
+    @fullname.setter
+    def fullname(self, name):  # setter --> allow emp_1.fullname = 'Jon Snow' --> this also change frist, last
+        first, last = name.split(' ')
+        self.first = first
+        self.last = last
+
+    @fullname.deleter
+    def fullname(self):  # setter --> allow emp_1.fullname = 'Jon Snow' --> this also change frist, last
+        print('Delete Name!')
+        self.first = None
+        self.last = None
 
     def apply_raise(self):
         # Note Employee.raise_amount change raise for all employee
@@ -49,6 +67,12 @@ class Employee:
 
     def __str__(self):  # make class more readable for the user
         return '{} - {}'.format(self.fullname(), self.email)
+
+    def __add__(self, other):  # add employee salary together
+        return self.pay + other.pay
+
+    def __len__(self):
+        return len(self.fullname())
 
     # ====== special (magic/ Dunder) Method End ======= #
 
@@ -91,6 +115,18 @@ emp_2 = Employee('Test', 'User', 4000)
 print(emp_1)
 print(repr(emp_1))
 print(str(emp_1))
+
+print(1 + 2)
+print(int.__add__(1, 2))
+
+print(emp_1 + emp_2)
+
+print(len('test'))
+print(str.__len__('test'))
+
+print(len(emp_1))  # length of fullname
+
+del emp_1.fullname
 #
 # dev_1 = Developer('Jon', 'Snow', 5000, 'Python')
 # dev_2 = Developer('Test', 'User', 4000, "Java")
