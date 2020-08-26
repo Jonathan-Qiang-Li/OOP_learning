@@ -1,6 +1,7 @@
 # Python Object-Oriented Programming from Corey Schafer
 # youtube: https://www.youtube.com/watch?v=ZDa-Z5JzLYM&list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc
 
+
 class Employee:
     # These are class variables
     num_of_emps = 0
@@ -42,6 +43,15 @@ class Employee:
             return False
         return True
 
+    # ====== special (magic/ Dunder) Method ======= #
+    def __repr__(self):  # use for debugging and logging
+        return "Employee ('{}', '{}', {})".format(self.first, self.last, self.pay)
+
+    def __str__(self):  # make class more readable for the user
+        return '{} - {}'.format(self.fullname(), self.email)
+
+    # ====== special (magic/ Dunder) Method End ======= #
+
 
 # ===================== Create subclass Developer ==================================#
 # inheritance from employee class
@@ -78,22 +88,26 @@ class Manager(Employee):
 emp_1 = Employee('Jon', 'Snow', 5000)
 emp_2 = Employee('Test', 'User', 4000)
 
-dev_1 = Developer('Jon', 'Snow', 5000, 'Python')
-dev_2 = Developer('Test', 'User', 4000, "Java")
-
-print(dev_1.pay)
-dev_1.apply_raise()
-print(dev_1.pay)
-
-mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
-print(mgr_1.email)
-mgr_1.add_emp(dev_2)
-mgr_1.print_emps()
-
-print(isinstance(mgr_1, Employee))
-print(isinstance(mgr_1, Developer))
-print(issubclass(Manager, Employee))
-print(issubclass(Manager, Developer))
+print(emp_1)
+print(repr(emp_1))
+print(str(emp_1))
+#
+# dev_1 = Developer('Jon', 'Snow', 5000, 'Python')
+# dev_2 = Developer('Test', 'User', 4000, "Java")
+#
+# print(dev_1.pay)
+# dev_1.apply_raise()
+# print(dev_1.pay)
+#
+# mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
+# print(mgr_1.email)
+# mgr_1.add_emp(dev_2)
+# mgr_1.print_emps()
+#
+# print(isinstance(mgr_1, Employee))
+# print(isinstance(mgr_1, Developer))
+# print(issubclass(Manager, Employee))
+# print(issubclass(Manager, Developer))
 
 #
 # import datetime
